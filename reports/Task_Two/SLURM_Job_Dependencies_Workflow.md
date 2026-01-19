@@ -34,7 +34,48 @@ Subsequent scripts repeat the same mechanism, forming a deterministic execution 
 `job_1.sh → job_2.sh → job_3.sh → job_4.sh`
 The following figures show the observed execution behavior of the workflow.
 At any moment, one job is running while the next job is queued with an unsatisfied dependency.
-hpc-workload-slurm/reports/Task_Two/Images/First.png
-hpc-workload-slurm/reports/Task_Two/Images/Second.png
-hpc-workload-slurm/reports/Task_Two/Images/Third.png
-hpc-workload-slurm/reports/Task_Two/Images/Fourth.png
+```bash
+(base) ali@ali-Inspiron-3576:~/Desktop/Intershippaper/practical/New Folder$ squeue -M ali,shash
+
+CLUSTER: ali
+             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+          67211891     debug firt_job      ali  R       0:03      1 dev0
+
+CLUSTER: shash
+             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+         134295739     debug second_j      ali PD       0:00      1 (Dependency)
+```
+
+```bash
+(base) ali@ali-Inspiron-3576:~/Desktop/Intershippaper/practical/New Folder$ squeue -M ali,shash
+
+CLUSTER: ali
+             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+          67211892     debug third_jo      ali PD       0:00      1 (Dependency)
+
+CLUSTER: shash
+             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+         134295740     debug forth_jo      ali PD       0:00      1 (Dependency)
+         134295739     debug second_j      ali  R       0:02      1 node0
+```
+
+```bash
+(base) ali@ali-Inspiron-3576:~/Desktop/Intershippaper/practical/New Folder$ squeue -M ali,shash
+
+CLUSTER: ali
+             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+          67211892     debug third_jo      ali  R       0:01      1 dev0
+
+CLUSTER: shash
+             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+         134295741     debug third_jo      ali  R       0:04      1 node0
+```
+```bash
+(base) ali@ali-Inspiron-3576:~/Desktop/Intershippaper/practical/New Folder$ squeue -M ali,shash
+
+CLUSTER: ali
+             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+
+CLUSTER: shash
+             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+```
